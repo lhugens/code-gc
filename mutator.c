@@ -42,8 +42,20 @@ int main(int argc, char** argv) {
 
    heap  = (Heap*)malloc(sizeof(Heap));
    roots = (List*)malloc(sizeof(List));
-
+   
+   #ifdef MS
    heap_init(heap, HEAP_SIZE, mark_sweep_gc);
+   #endif 
+
+   #ifdef MC
+   heap_init(heap, HEAP_SIZE, mark_compact_gc);
+   #endif
+
+   #ifdef CC
+   heap_init(heap, HEAP_SIZE, copy_collection_gc);
+   #endif 
+
+
    list_init(roots);
 
    srandom(getpid());
@@ -62,9 +74,9 @@ int main(int argc, char** argv) {
             /* populate tree with keys between 0-100 */
             bistree_insert(t, random() % MAX_KEY_VALUE);
          }
-         fprintf(stdout, "tree size is %d\n", bistree_size(t));
-         fprintf(stdout, "(inorder traversal)\n");
-         bistree_inorder(t);
+         // fprintf(stdout, "tree size is %d\n", bistree_size(t));
+         // fprintf(stdout, "(inorder traversal)\n");
+         // bistree_inorder(t);
       } 
       else { // remove nodes
          /* skip if there are no roots to manipulate */
@@ -80,9 +92,9 @@ int main(int argc, char** argv) {
              /* this is checked in bistree_remove */
              bistree_remove(chosen, random() % MAX_KEY_VALUE);
          }
-         fprintf(stdout, "tree size is %d\n", bistree_size(chosen));
-         fprintf(stdout, "(inorder traversal)\n");
-         bistree_inorder(chosen);
+         // fprintf(stdout, "tree size is %d\n", bistree_size(chosen));
+         // fprintf(stdout, "(inorder traversal)\n");
+         // bistree_inorder(chosen);
       }
    }
    /* caught ^C ! */

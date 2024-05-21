@@ -38,7 +38,7 @@ EXE    = mutator
 
 CC     = gcc
 LL     = gcc
-CFLAGS = -Wall
+CFLAGS = -Wall -g -DMS
 LFLAGS =
 
 # *  Define the rules.                                                       *

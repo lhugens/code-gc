@@ -9,6 +9,8 @@
 #include "bistree.h"
 #include "heap.h"
 
+#include "globals.h"
+
 void bistree_init(BisTree* tree) {
     tree->root = NULL;
     tree->size = 0;
@@ -29,25 +31,30 @@ bool bistree_lookup(BisTree* tree, int data) {
     return bitreenode_lookup(tree->root, data);
 }
 
-BiTreeNode* bitreenode_insert(BiTreeNode* node, int data) {
+BiTreeNode* bitreenode_insert(BiTreeNode* node, int data, BiTreeNode* node2) {
    if (node == NULL) {
-      BiTreeNode* node = (BiTreeNode*)my_malloc(sizeof(BiTreeNode)); // passar a ser o my_malloc
-      node->data = data;
-      node->left = NULL;
-      node->right= NULL;
-      return node;
+      node2->data = data;
+      node2->left = NULL;
+      node2->right= NULL;
+      return node2;
     }
     else if(data < node->data)
-      node->left = bitreenode_insert(node->left, data);
+      node->left = bitreenode_insert(node->left, data, node2);
     else
-      node->right= bitreenode_insert(node->right, data);
+      node->right= bitreenode_insert(node->right, data, node2);
     return node;
 }
 
 bool bistree_insert(BisTree* tree, int data) {
    if (bistree_lookup(tree, data))
       return false;
-   tree->root = bitreenode_insert(tree->root, data);
+   BiTreeNode* node = (BiTreeNode*)my_malloc(sizeof(BiTreeNode)); // passar a ser o my_malloc
+   if(node == NULL){
+      printf("my_malloc returned NULL. exiting.");
+      exit(1);
+   }
+   // printf("new node %x %x %x\n", node, heap->base, heap->limit);
+   tree->root = bitreenode_insert(tree->root, data, node);
    tree->size = tree->size + 1;
    return true;
 }
