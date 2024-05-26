@@ -8,3 +8,9 @@ $ ./mutator 0.99
 to clean and leave just the source code
 
 $ make -f makefile clean
+
+to test the Mark & Sweep Algorithm, go to the 
+makefile and in CFLAGS add a -DMS, 
+to test the Mark & Compact Algorithm add a -DMC,
+for the Copy Collection algorithm a -CC flag works, but I 
+haven't implemented the algorithm.

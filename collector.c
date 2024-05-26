@@ -52,7 +52,6 @@ void mark_sweep_gc(List* roots) {
     * mark reachable
     */
    mark();
-
    /*
     * sweep phase:
     * go through entire heap,
@@ -61,9 +60,7 @@ void mark_sweep_gc(List* roots) {
    sweep();
 }
 #endif 
-
 ////////////////////////////////////////////////////////
-
 #ifdef MC
 void* computeLocations(void){
    char* _scan = heap->base;
@@ -150,9 +147,7 @@ void mark_compact_gc(List* roots) {
    return;
 }
 #endif
-
- ////////////////////////////////////////////
-
+////////////////////////////////////////////
 #ifdef CC
  void flip(char* fromSpace, char* toSpace){
    char* temp = fromSpace;
@@ -181,7 +176,6 @@ void copy_collection_gc(List* roots) {
    return;
 }
 #endif
-
 
 void generational_gc(List*roots, ...) {
     printf("gcing()...\n");

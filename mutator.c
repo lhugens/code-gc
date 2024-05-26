@@ -42,7 +42,8 @@ int main(int argc, char** argv) {
 
    heap  = (Heap*)malloc(sizeof(Heap));
    roots = (List*)malloc(sizeof(List));
-   
+
+   // choose garbage collector
    #ifdef MS
    heap_init(heap, HEAP_SIZE, mark_sweep_gc);
    #endif 
